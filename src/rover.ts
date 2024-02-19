@@ -20,6 +20,6 @@ export default class Rover {
     if (orientation === "S") {
       return "E"
     }
-    return ""
+    return "N"
   }
 }

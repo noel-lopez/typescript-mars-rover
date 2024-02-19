@@ -14,4 +14,8 @@ describe('rover', () => {
     const rover = new Rover()
     expect(rover.execute('LLL')).toBe('0:0:E')
   })
+  test('should face North when give "LLLL" command line from initial position', () => {
+    const rover = new Rover()
+    expect(rover.execute('LLLL')).toBe('0:0:N')
+  })
 })
