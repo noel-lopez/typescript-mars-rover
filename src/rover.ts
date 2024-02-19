@@ -1,11 +1,25 @@
 export default class Rover {
   public execute(commands: string) {
-    if (commands === "LL") {
-      return '0:0:S'
+    let orientation = "N"
+    const splittedCommands = commands.split('')
+    for (const command of splittedCommands) {
+      if (command === "L") {
+        orientation = this.rotateLeft(orientation)
+      }
     }
-    if (commands === "LLL") {
-      return '0:0:E'
+    return "0:0:" + orientation
+  }
+
+  private rotateLeft(orientation: string): string {
+    if (orientation === "N") {
+      return "W"
     }
-    return '0:0:W'
+    if (orientation === "W") {
+      return "S"
+    }
+    if (orientation === "S") {
+      return "E"
+    }
+    return ""
   }
 }
