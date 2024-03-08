@@ -4,8 +4,16 @@ import North from "./north"
 
 export default class Rover {
 
-  private orientation: Orientation = new North()
-  private position = new Position()
+  private orientation: Orientation
+  private position: Position
+
+  constructor(
+    position: Position = new Position(),
+    orientation: Orientation = new North()
+  ) {
+    this.position = position
+    this.orientation = orientation
+  }
 
   public execute(commands: string) {
     const splittedCommands = commands.split('')

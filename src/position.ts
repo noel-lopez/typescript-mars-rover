@@ -1,9 +1,19 @@
 import { Grid } from "./grid";
 
 export class Position {
-  private x = 0;
-  private y = 0;
-  private grid = new Grid();
+  private x: number
+  private y: number
+  private grid: Grid
+
+  constructor(
+    x: number = 0,
+    y: number = 0,
+    grid: Grid = new Grid()
+  ) {
+    this.x = x;
+    this.y = y;
+    this.grid = grid;
+  }
 
   toString() {
     return `${this.x}:${this.y}`;
