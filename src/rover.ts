@@ -1,11 +1,49 @@
 import { Orientation } from "../types/orientation.interface"
 import North from "./north"
 
+class Grid {
+  private x = 10
+  private y = 10
+
+  constructor(x = 10, y = 10) {
+    this.x = x
+    this.y = y
+  }
+
+  public get xSize() {
+    return this.x
+  }
+
+  public get ySize() {
+    return this.y
+  }
+}
+
+class Position {
+  private x = 0
+  private y = 0
+  private grid = new Grid()
+
+  toString() {
+    return `${this.x}:${this.y}`
+  }
+
+  move({ x, y }: { x: number, y: number }) {
+    this.x += x
+    this.y += y
+    this.warpAroundGrid()
+  }
+
+  private warpAroundGrid() {
+    this.x = (this.x + this.grid.xSize) % this.grid.xSize
+    this.y = (this.y + this.grid.ySize) % this.grid.ySize
+  }
+}
+
 export default class Rover {
 
   private orientation: Orientation = new North()
-  private x = 0
-  private y = 0
+  private position = new Position()
 
   public execute(commands: string) {
     const splittedCommands = commands.split('')
@@ -20,7 +58,7 @@ export default class Rover {
         this.moveForward()
       }
     }
-    return `${this.x}:${this.y}:${this.orientation.toString()}`
+    return `${this.position.toString()}:${this.orientation.toString()}`
   }
 
   private rotateLeft(): void {
@@ -33,10 +71,6 @@ export default class Rover {
 
   private moveForward(): void {
     const { x, y } = this.orientation.moveForward()
-    this.x += x
-    this.y += y
-    // wrap around the grid (10 x 10)
-    this.x = (this.x + 10) % 10
-    this.y = (this.y + 10) % 10
+    this.position.move({ x, y })
   }
 }
